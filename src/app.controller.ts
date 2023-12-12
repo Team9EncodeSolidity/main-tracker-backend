@@ -15,7 +15,7 @@ export class AppController {
     return { result: await this.appService.getTokenAddress() };
   }
 
-  @Get('/token-contract-abi')
+  @Get('/token-contract-address')
   async getTrackerAddress() {
     return { result: await this.appService.getTrackerAddress() };
   }
