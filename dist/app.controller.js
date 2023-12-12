@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppController = void 0;
 const common_1 = require("@nestjs/common");
 const app_service_1 = require("./app.service");
+const app_dto_1 = require("./dtos/app.dto");
 let AppController = class AppController {
     constructor(appService) {
         this.appService = appService;
@@ -28,8 +29,14 @@ let AppController = class AppController {
     async getTokenAddress() {
         return { result: await this.appService.getTokenAddress() };
     }
+    async getTokenAbi() {
+        return { result: await this.appService.getTokenAbi() };
+    }
     async getTrackerAddress() {
         return { result: await this.appService.getTrackerAddress() };
+    }
+    async getTrackerAbi() {
+        return { result: await this.appService.getTrackerAbi() };
     }
     async setTrackerCtAddr(body) {
         return { result: await this.appService.setTrackerCtAddr(body) };
@@ -58,16 +65,28 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AppController.prototype, "getTokenAddress", null);
 __decorate([
+    (0, common_1.Get)('/token-contract-abi'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "getTokenAbi", null);
+__decorate([
     (0, common_1.Get)('/tracker-contract-address'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], AppController.prototype, "getTrackerAddress", null);
 __decorate([
+    (0, common_1.Get)('/tracker-contract-abi'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "getTrackerAbi", null);
+__decorate([
     (0, common_1.Post)('/set-tracker-contract-address'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [app_dto_1.SetTrackerCtAddrDto]),
     __metadata("design:returntype", Promise)
 ], AppController.prototype, "setTrackerCtAddr", null);
 __decorate([

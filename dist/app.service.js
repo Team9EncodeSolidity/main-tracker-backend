@@ -38,6 +38,17 @@ let AppService = class AppService {
         const lastBlkNum = blkNum | 0;
         return lastBlkNum;
     }
+    async getTokenAddress() {
+        try {
+            return this.tokenContract.target.toString();
+        }
+        catch (e) {
+            return new common_1.BadRequestException('Err:WrongTokenCt', e);
+        }
+    }
+    async getTokenAbi() {
+        return tokenJson.abi;
+    }
     async getTrackerAddress() {
         try {
             return this.trackerContract.target.toString();
@@ -46,13 +57,8 @@ let AppService = class AppService {
             return new common_1.BadRequestException('Err:WrongTrackerCt', e);
         }
     }
-    async getTokenAddress() {
-        try {
-            return this.tokenContract.target.toString();
-        }
-        catch (e) {
-            return new common_1.BadRequestException('Err:WrongTokenCt', e);
-        }
+    async getTrackerAbi() {
+        return trackerJson.abi;
     }
     async setTrackerCtAddr({ address: trackerAddress }) {
         this.trackerContract = new ethers_1.ethers.Contract(trackerAddress, trackerJson.abi, this.wallet);
