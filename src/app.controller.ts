@@ -5,18 +5,18 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
+  @Get('/')
   getHello(): string {
     return this.appService.getHello();
   }
 
-  @Get('tracker-address')
-  async getTrackerAddress() {
-    return { result: await this.appService.getTrackerAddress() };
-  }
-
-  @Get('token-address')
+  @Get('/token-contract-address')
   async getTokenAddress() {
     return { result: await this.appService.getTokenAddress() };
+  }
+
+  @Get('/token-contract-abi')
+  async getTrackerAddress() {
+    return { result: await this.appService.getTrackerAddress() };
   }
 }
