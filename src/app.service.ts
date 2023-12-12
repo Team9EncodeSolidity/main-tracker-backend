@@ -13,31 +13,39 @@ export class AppService {
 
   constructor(private configService: ConfigService) {
     this.provider = new ethers.JsonRpcProvider(
-      this.configService.get<string>('RPC_ENDPOINT_URL'),
+      this.configService.get<string>(
+        'RPC_ENDPOINT_URL',
+        process.env.RPC_ENDPOINT_URL,
+      ),
     );
     this.wallet = new ethers.Wallet(
-      this.configService.get<string>('PRIVATE_KEY'),
+      this.configService.get<string>(
+        'PRIVATE_KEY',
+        process.env.PRIVATE_KEY || 'f'.repeat(64),
+      ),
       this.provider,
     );
+
     this.trackerContract = new ethers.Contract(
-      this.configService.get<string>('TRACKER_ADDRESS'),
+      this.configService.get<string>(
+        'TOKEN_CT_ADDR',
+        process.env.TOKEN_CT_ADDR || ethers.ZeroAddress,
+      ),
       trackerJson.abi,
       this.wallet,
     );
-    this.setTokenContract();
-  }
-  
-  async setTokenContract() {
-    const tokenAddress = await this.trackerContract.tokenContract();
     this.tokenContract = new ethers.Contract(
-      tokenAddress,
+      this.configService.get<string>(
+        'MAIN_CT_ADDR',
+        process.env.MAIN_CT_ADDR || ethers.ZeroAddress,
+      ),
       tokenJson.abi,
       this.wallet,
     );
   }
 
   getHello(): string {
-    return 'Hello World!';
+    return 'Main Backend App Running OK. Go to .../api/ for more!';
   }
 
   async getTrackerAddress() {
@@ -50,9 +58,9 @@ export class AppService {
 
   async getTasksList() {
     const idCounter = await this.trackerContract.tokenIdCounter();
-    let arr:object[]=[];
+    const arr: object[] = [];
 
-    for (let i=0; i < Number(idCounter); i++) {
+    for (let i = 0; i < Number(idCounter); i++) {
       const id = i;
       const task = await this.trackerContract.maintenanceTasks(id);
       const {
@@ -68,7 +76,7 @@ export class AppService {
         repairman,
         qualityInspector,
       } = task;
-      
+
       const tokenId = i;
 
       // const initTime = new Date(startTime * 1000).toUTCString();
@@ -78,7 +86,8 @@ export class AppService {
       const genStatus = generalStatus.toString();
       const execStatus = executionStatus.toString();
 
-      arr.push({tokenId,
+      arr.push({
+        tokenId,
         clientName,
         systemName,
         maintenanceName,
@@ -89,7 +98,8 @@ export class AppService {
         genStatus,
         execStatus,
         repairman,
-        qualityInspector});
+        qualityInspector,
+      });
     }
     return arr;
   }
