@@ -9,4 +9,14 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
+
+  @Get('tracker-address')
+  async getTrackerAddress() {
+    return { result: await this.appService.getTrackerAddress() };
+  }
+
+  @Get('token-address')
+  async getTokenAddress() {
+    return { result: await this.appService.getTokenAddress() };
+  }
 }
