@@ -83,8 +83,8 @@ export class AppService {
     return trackerJson.abi;
   }
 
-  async deployTokenContract(arg: any) {
-    if (Object.keys(arg).length) {
+  async deployTokenContract(args: any) {
+    if (Object.keys(args).length) {
       return new BadRequestException('Err:NoArgsPls');
     }
     const { abi, bytecode: code } = tokenJson;
@@ -93,6 +93,23 @@ export class AppService {
     await contract.waitForDeployment();
     const newCtAddr = await contract.getAddress();
     this.tokenContract = new ethers.Contract(newCtAddr, abi, this.wallet);
+    return newCtAddr;
+  }
+
+  async deployTrackerContract(args: any) {
+    if (Object.keys(args).length > 2) {
+      return new BadRequestException('Err:TooManyArgs');
+    }
+    const { tokenAddress, ration } = args;
+    if (tokenAddress == ethers.ZeroAddress) {
+      return new BadRequestException('Err:TokenAddrIsZero');
+    }
+    const { abi, bytecode: code } = trackerJson;
+    const ctFactory = new ethers.ContractFactory(abi, code, this.wallet);
+    const contract = await ctFactory.deploy(tokenAddress, ration);
+    await contract.waitForDeployment();
+    const newCtAddr = await contract.getAddress();
+    this.trackerContract = new ethers.Contract(newCtAddr, abi, this.wallet);
     return newCtAddr;
   }
 

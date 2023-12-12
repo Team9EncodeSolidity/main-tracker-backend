@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
 import { AppService } from './app.service';
-import { SetTrackerCtAddrDto } from './dtos/app.dto';
+import { SetTrackerCtAddrDto, DeployTrackerContract } from './dtos/app.dto';
 
 @Controller()
 export class AppController {
@@ -39,6 +39,11 @@ export class AppController {
   @Post('/deploy-token-contract')
   async deployTokenContract(@Body() body = {}) {
     return { result: await this.appService.deployTokenContract(body) };
+  }
+
+  @Post('/deploy-tracker-contract')
+  async deployTrackerContract(@Body() body: DeployTrackerContract) {
+    return { result: await this.appService.deployTrackerContract(body) };
   }
 
   @Post('/set-tracker-contract-address')
