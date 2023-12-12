@@ -57,7 +57,6 @@ export class AppService {
   async getTokenAddress() {
     return this.tokenContract.target.toString();
   }
-
   async getTasksList() {
     const idCounter = await this.trackerContract.tokenIdCounter();
     const arr: object[] = [];
@@ -79,7 +78,7 @@ export class AppService {
         qualityInspector,
       } = task;
 
-      const tokenId = i;
+      const tokenId = i.toString();
 
       // const initTime = new Date(startTime * 1000).toUTCString();
       // const estimatedFinish = new Date(estimatedTime * 1000).toUTCString();
