@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { AppService } from './app.service';
 import {
   SetTrackerCtAddrDto,
@@ -63,5 +63,15 @@ export class AppController {
   @Get('/tasks-list')
   async getTasksList() {
     return { result: await this.appService.getTasksList() };
+  }
+
+  @Get('/task/:id')
+  async getTask(@Param('id') id: string) {
+    return { result: await this.appService.getTaskById(id) };
+  }
+
+  @Get('/nfts-list')
+  async getNftsList() {
+    return { result: await this.appService.getNftsList() };
   }
 }
