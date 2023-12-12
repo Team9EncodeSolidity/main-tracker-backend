@@ -95,5 +95,10 @@ export declare class AppService {
         tokenAddress: any;
         trackerAddress: any;
     }>;
+    grantMintRole({ address }: {
+        address: any;
+    }): Promise<{
+        txHash: any;
+    }>;
     getTasksList(): Promise<BadRequestException | object[]>;
 }

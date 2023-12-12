@@ -1,5 +1,5 @@
 import { AppService } from './app.service';
-import { SetTrackerCtAddrDto, DeployTrackerContract } from './dtos/app.dto';
+import { SetTrackerCtAddrDto, DeployTrackerContract, GrantMintRole } from './dtos/app.dto';
 export declare class AppController {
     private readonly appService;
     constructor(appService: AppService);
@@ -99,6 +99,11 @@ export declare class AppController {
         result: {
             tokenAddress: any;
             trackerAddress: any;
+        };
+    }>;
+    grantMintRole(body: GrantMintRole): Promise<{
+        result: {
+            txHash: any;
         };
     }>;
     getTasksList(): Promise<{

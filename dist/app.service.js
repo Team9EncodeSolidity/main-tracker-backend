@@ -93,6 +93,12 @@ let AppService = class AppService {
         const tokenAddress = await this.trackerContract?.tokenContract();
         return { tokenAddress, trackerAddress };
     }
+    async grantMintRole({ address }) {
+        const tokenContract = this.tokenContract;
+        const tx = await tokenContract.grantMint(address);
+        await tx.wait();
+        return { txHash: tx?.hash };
+    }
     async getTasksList() {
         try {
             const idCounter = await this.trackerContract.tokenIdCounter();

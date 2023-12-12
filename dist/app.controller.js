@@ -47,6 +47,9 @@ let AppController = class AppController {
     async setTrackerCtAddr(body) {
         return { result: await this.appService.setTrackerCtAddr(body) };
     }
+    async grantMintRole(body) {
+        return { result: await this.appService.grantMintRole(body) };
+    }
     async getTasksList() {
         return { result: await this.appService.getTasksList() };
     }
@@ -109,6 +112,13 @@ __decorate([
     __metadata("design:paramtypes", [app_dto_1.SetTrackerCtAddrDto]),
     __metadata("design:returntype", Promise)
 ], AppController.prototype, "setTrackerCtAddr", null);
+__decorate([
+    (0, common_1.Post)('/grant-mint-role'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [app_dto_1.GrantMintRole]),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "grantMintRole", null);
 __decorate([
     (0, common_1.Get)('/tasks-list'),
     __metadata("design:type", Function),
