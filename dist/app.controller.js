@@ -19,6 +19,9 @@ let AppController = class AppController {
     getHello() {
         return this.appService.getHello();
     }
+    async getBlockNumber() {
+        return await this.appService.getBlockNumber();
+    }
     async getTokenAddress() {
         return { result: await this.appService.getTokenAddress() };
     }
@@ -36,6 +39,12 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", String)
 ], AppController.prototype, "getHello", null);
+__decorate([
+    (0, common_1.Get)('/block-number'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "getBlockNumber", null);
 __decorate([
     (0, common_1.Get)('/token-contract-address'),
     __metadata("design:type", Function),

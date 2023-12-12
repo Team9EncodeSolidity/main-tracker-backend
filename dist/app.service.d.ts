@@ -1,3 +1,4 @@
+import { BadRequestException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ethers } from 'ethers';
 export declare class AppService {
@@ -7,9 +8,10 @@ export declare class AppService {
     provider: ethers.Provider;
     wallet: ethers.Wallet;
     constructor(configService: ConfigService);
-    setTokenContract(): Promise<void>;
+    private utilsSetTokenContract;
     getHello(): string;
-    getTrackerAddress(): Promise<string>;
-    getTokenAddress(): Promise<string>;
-    getTasksList(): Promise<object[]>;
+    getBlockNumber(): Promise<number>;
+    getTrackerAddress(): Promise<string | BadRequestException>;
+    getTokenAddress(): Promise<string | BadRequestException>;
+    getTasksList(): Promise<BadRequestException | object[]>;
 }
