@@ -21,7 +21,6 @@ let AppService = class AppService {
         this.provider = new ethers_1.ethers.JsonRpcProvider(this.configService.get('RPC_ENDPOINT_URL', process.env.RPC_ENDPOINT_URL));
         this.wallet = new ethers_1.ethers.Wallet(this.configService.get('PRIVATE_KEY', process.env.PRIVATE_KEY || 'f'.repeat(64)), this.provider);
         this.trackerContract = new ethers_1.ethers.Contract(this.configService.get('TOKEN_CT_ADDR', process.env.TOKEN_CT_ADDR || ethers_1.ethers.ZeroAddress), trackerJson.abi, this.wallet);
-        this.trackerContract = new ethers_1.ethers.Contract(this.configService.get('TOKEN_CT_ADDR', process.env.TOKEN_CT_ADDR || ethers_1.ethers.ZeroAddress), trackerJson.abi, this.wallet);
         this.tokenContract = new ethers_1.ethers.Contract(this.configService.get('MAIN_CT_ADDR', process.env.MAIN_CT_ADDR || ethers_1.ethers.ZeroAddress), tokenJson.abi, this.wallet);
     }
     getHello() {
