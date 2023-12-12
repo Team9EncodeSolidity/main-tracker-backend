@@ -10,6 +10,11 @@ export class AppController {
     return this.appService.getHello();
   }
 
+  @Get('/block-number')
+  async getBlockNumber() {
+    return await this.appService.getBlockNumber();
+  }
+
   @Get('/token-contract-address')
   async getTokenAddress() {
     return { result: await this.appService.getTokenAddress() };
@@ -24,5 +29,4 @@ export class AppController {
   async getTasksList() {
     return { result: await this.appService.getTasksList() };
   }
-
 }
