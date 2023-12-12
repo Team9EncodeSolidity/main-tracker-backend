@@ -23,3 +23,12 @@ export class DeployTrackerContract {
   })
   ration: string;
 }
+
+export class GrantMintRole {
+  @ApiProperty({
+    type: String,
+    required: true,
+    default: '0x0000000000000000000000000000000000000000',
+  })
+  address: string;
+}

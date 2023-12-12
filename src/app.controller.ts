@@ -1,6 +1,10 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
 import { AppService } from './app.service';
-import { SetTrackerCtAddrDto, DeployTrackerContract } from './dtos/app.dto';
+import {
+  SetTrackerCtAddrDto,
+  DeployTrackerContract,
+  GrantMintRole,
+} from './dtos/app.dto';
 
 @Controller()
 export class AppController {
@@ -49,6 +53,11 @@ export class AppController {
   @Post('/set-tracker-contract-address')
   async setTrackerCtAddr(@Body() body: SetTrackerCtAddrDto) {
     return { result: await this.appService.setTrackerCtAddr(body) };
+  }
+
+  @Post('/grant-mint-role')
+  async grantMintRole(@Body() body: GrantMintRole) {
+    return { result: await this.appService.grantMintRole(body) };
   }
 
   @Get('/tasks-list')
