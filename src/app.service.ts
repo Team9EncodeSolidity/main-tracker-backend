@@ -59,6 +59,18 @@ export class AppService {
     return lastBlkNum;
   }
 
+  async getTokenAddress() {
+    try {
+      return this.tokenContract.target.toString();
+    } catch (e) {
+      return new BadRequestException('Err:WrongTokenCt', e);
+    }
+  }
+
+  async getTokenAbi() {
+    return tokenJson.abi;
+  }
+
   async getTrackerAddress() {
     try {
       return this.trackerContract.target.toString();
@@ -67,12 +79,18 @@ export class AppService {
     }
   }
 
-  async getTokenAddress() {
-    try {
-      return this.tokenContract.target.toString();
-    } catch (e) {
-      return new BadRequestException('Err:WrongTokenCt', e);
-    }
+  async getTrackerAbi() {
+    return trackerJson.abi;
+  }
+
+  async setTrackerCtAddr({ address: trackerAddress }) {
+    this.trackerContract = new ethers.Contract(
+      trackerAddress,
+      trackerJson.abi,
+      this.wallet,
+    );
+    const tokenAddress = await this.trackerContract?.tokenContract();
+    return { tokenAddress, trackerAddress }; // console.log({ tokenAddress, trackerAddress })
   }
 
   async getTasksList() {
