@@ -19,4 +19,10 @@ export class AppController {
   async getTokenAddress() {
     return { result: await this.appService.getTokenAddress() };
   }
+
+  @Get('tasks-list')
+  async getTasksList() {
+    return { result: await this.appService.getTasksList() };
+  }
+  
 }

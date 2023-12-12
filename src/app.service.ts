@@ -47,4 +47,50 @@ export class AppService {
   async getTokenAddress() {
     return this.tokenContract.target.toString();
   }
+
+  async getTasksList() {
+    const idCounter = await this.trackerContract.tokenIdCounter();
+    let arr:object[]=[];
+
+    for (let i=0; i < Number(idCounter); i++) {
+      const id = i;
+      const task = await this.trackerContract.maintenanceTasks(id);
+      const {
+        clientName,
+        systemName,
+        maintenanceName,
+        systemCycles,
+        estimatedTime,
+        startTime,
+        cost,
+        generalStatus,
+        executionStatus,
+        repairman,
+        qualityInspector,
+      } = task;
+      
+      const tokenId = i;
+
+      // const initTime = new Date(startTime * 1000).toUTCString();
+      // const estimatedFinish = new Date(estimatedTime * 1000).toUTCString();
+
+      const taskCost = ethers.formatEther(cost.toString());
+      const genStatus = generalStatus.toString();
+      const execStatus = executionStatus.toString();
+
+      arr.push({tokenId,
+        clientName,
+        systemName,
+        maintenanceName,
+        systemCycles,
+        estimatedTime,
+        startTime,
+        taskCost,
+        genStatus,
+        execStatus,
+        repairman,
+        qualityInspector});
+    }
+    return arr;
+  }
 }
