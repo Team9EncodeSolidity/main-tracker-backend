@@ -36,6 +36,11 @@ export class AppController {
     return { result: await this.appService.getTrackerAbi() };
   }
 
+  @Post('/deploy-token-contract')
+  async deployTokenContract(@Body() body = {}) {
+    return { result: await this.appService.deployTokenContract(body) };
+  }
+
   @Post('/set-tracker-contract-address')
   async setTrackerCtAddr(@Body() body: SetTrackerCtAddrDto) {
     return { result: await this.appService.setTrackerCtAddr(body) };

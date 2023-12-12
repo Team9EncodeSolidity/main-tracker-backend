@@ -83,6 +83,19 @@ export class AppService {
     return trackerJson.abi;
   }
 
+  async deployTokenContract(arg: any) {
+    if (Object.keys(arg).length) {
+      return new BadRequestException('Err:NoArgsPls');
+    }
+    const { abi, bytecode: code } = tokenJson;
+    const ctFactory = new ethers.ContractFactory(abi, code, this.wallet);
+    const contract = await ctFactory.deploy();
+    await contract.waitForDeployment();
+    const newCtAddr = await contract.getAddress();
+    this.tokenContract = new ethers.Contract(newCtAddr, abi, this.wallet);
+    return newCtAddr;
+  }
+
   async setTrackerCtAddr({ address: trackerAddress }) {
     this.trackerContract = new ethers.Contract(
       trackerAddress,
