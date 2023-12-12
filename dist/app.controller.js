@@ -49,7 +49,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AppController.prototype, "getTrackerAddress", null);
 __decorate([
-    (0, common_1.Get)('tasks-list'),
+    (0, common_1.Get)('/tasks-list'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)

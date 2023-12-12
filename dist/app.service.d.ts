@@ -7,6 +7,7 @@ export declare class AppService {
     provider: ethers.Provider;
     wallet: ethers.Wallet;
     constructor(configService: ConfigService);
+    setTokenContract(): Promise<void>;
     getHello(): string;
     getTrackerAddress(): Promise<string>;
     getTokenAddress(): Promise<string>;

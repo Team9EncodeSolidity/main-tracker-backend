@@ -25,9 +25,4 @@ export class AppController {
     return { result: await this.appService.getTasksList() };
   }
 
-  @Get('tasks-list')
-  async getTasksList() {
-    return { result: await this.appService.getTasksList() };
-  }
-  
 }

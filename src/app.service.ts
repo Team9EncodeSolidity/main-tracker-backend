@@ -28,17 +28,19 @@ export class AppService {
 
     this.trackerContract = new ethers.Contract(
       this.configService.get<string>(
-        'TOKEN_CT_ADDR',
-        process.env.TOKEN_CT_ADDR || ethers.ZeroAddress,
+        'TRACKER_CT_ADDR',
+        process.env.TRACKER_CT_ADDR || ethers.ZeroAddress,
       ),
       trackerJson.abi,
       this.wallet,
     );
+    this.setTokenContract();
+  }
+  
+  async setTokenContract() {
+    const tokenAddress = await this.trackerContract.tokenContract();
     this.tokenContract = new ethers.Contract(
-      this.configService.get<string>(
-        'MAIN_CT_ADDR',
-        process.env.MAIN_CT_ADDR || ethers.ZeroAddress,
-      ),
+      tokenAddress,
       tokenJson.abi,
       this.wallet,
     );
