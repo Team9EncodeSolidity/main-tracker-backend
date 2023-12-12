@@ -60,6 +60,34 @@ let AppService = class AppService {
     async getTrackerAbi() {
         return trackerJson.abi;
     }
+    async deployTokenContract(args) {
+        if (Object.keys(args).length) {
+            return new common_1.BadRequestException('Err:NoArgsPls');
+        }
+        const { abi, bytecode: code } = tokenJson;
+        const ctFactory = new ethers_1.ethers.ContractFactory(abi, code, this.wallet);
+        const contract = await ctFactory.deploy();
+        await contract.waitForDeployment();
+        const newCtAddr = await contract.getAddress();
+        this.tokenContract = new ethers_1.ethers.Contract(newCtAddr, abi, this.wallet);
+        return newCtAddr;
+    }
+    async deployTrackerContract(args) {
+        if (Object.keys(args).length > 2) {
+            return new common_1.BadRequestException('Err:TooManyArgs');
+        }
+        const { tokenAddress, ration } = args;
+        if (tokenAddress == ethers_1.ethers.ZeroAddress) {
+            return new common_1.BadRequestException('Err:TokenAddrIsZero');
+        }
+        const { abi, bytecode: code } = trackerJson;
+        const ctFactory = new ethers_1.ethers.ContractFactory(abi, code, this.wallet);
+        const contract = await ctFactory.deploy(tokenAddress, ration);
+        await contract.waitForDeployment();
+        const newCtAddr = await contract.getAddress();
+        this.trackerContract = new ethers_1.ethers.Contract(newCtAddr, abi, this.wallet);
+        return newCtAddr;
+    }
     async setTrackerCtAddr({ address: trackerAddress }) {
         this.trackerContract = new ethers_1.ethers.Contract(trackerAddress, trackerJson.abi, this.wallet);
         const tokenAddress = await this.trackerContract?.tokenContract();

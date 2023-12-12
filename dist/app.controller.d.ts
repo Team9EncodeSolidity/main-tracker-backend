@@ -1,5 +1,5 @@
 import { AppService } from './app.service';
-import { SetTrackerCtAddrDto } from './dtos/app.dto';
+import { SetTrackerCtAddrDto, DeployTrackerContract } from './dtos/app.dto';
 export declare class AppController {
     private readonly appService;
     constructor(appService: AppService);
@@ -88,6 +88,12 @@ export declare class AppController {
             type: string;
             anonymous?: undefined;
         })[];
+    }>;
+    deployTokenContract(body?: {}): Promise<{
+        result: string | import("@nestjs/common").BadRequestException;
+    }>;
+    deployTrackerContract(body: DeployTrackerContract): Promise<{
+        result: string | import("@nestjs/common").BadRequestException;
     }>;
     setTrackerCtAddr(body: SetTrackerCtAddrDto): Promise<{
         result: {

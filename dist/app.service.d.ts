@@ -87,6 +87,8 @@ export declare class AppService {
         type: string;
         anonymous?: undefined;
     })[]>;
+    deployTokenContract(args: any): Promise<string | BadRequestException>;
+    deployTrackerContract(args: any): Promise<string | BadRequestException>;
     setTrackerCtAddr({ address: trackerAddress }: {
         address: any;
     }): Promise<{

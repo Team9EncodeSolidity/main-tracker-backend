@@ -38,6 +38,12 @@ let AppController = class AppController {
     async getTrackerAbi() {
         return { result: await this.appService.getTrackerAbi() };
     }
+    async deployTokenContract(body = {}) {
+        return { result: await this.appService.deployTokenContract(body) };
+    }
+    async deployTrackerContract(body) {
+        return { result: await this.appService.deployTrackerContract(body) };
+    }
     async setTrackerCtAddr(body) {
         return { result: await this.appService.setTrackerCtAddr(body) };
     }
@@ -82,6 +88,20 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], AppController.prototype, "getTrackerAbi", null);
+__decorate([
+    (0, common_1.Post)('/deploy-token-contract'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "deployTokenContract", null);
+__decorate([
+    (0, common_1.Post)('/deploy-tracker-contract'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [app_dto_1.DeployTrackerContract]),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "deployTrackerContract", null);
 __decorate([
     (0, common_1.Post)('/set-tracker-contract-address'),
     __param(0, (0, common_1.Body)()),
