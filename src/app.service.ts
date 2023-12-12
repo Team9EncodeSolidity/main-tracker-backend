@@ -90,7 +90,7 @@ export class AppService {
       this.wallet,
     );
     const tokenAddress = await this.trackerContract?.tokenContract();
-    return { tokenAddress, trackerAddress }; // console.log({ tokenAddress, trackerAddress })
+    return { tokenAddress, trackerAddress };
   }
 
   async getTasksList() {
