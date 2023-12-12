@@ -32,6 +32,34 @@ let AppService = class AppService {
     async getTokenAddress() {
         return this.tokenContract.target.toString();
     }
+    async getTasksList() {
+        const idCounter = await this.trackerContract.tokenIdCounter();
+        const arr = [];
+        for (let i = 0; i < Number(idCounter); i++) {
+            const id = i;
+            const task = await this.trackerContract.maintenanceTasks(id);
+            const { clientName, systemName, maintenanceName, systemCycles, estimatedTime, startTime, cost, generalStatus, executionStatus, repairman, qualityInspector, } = task;
+            const tokenId = i;
+            const taskCost = ethers_1.ethers.formatEther(cost.toString());
+            const genStatus = generalStatus.toString();
+            const execStatus = executionStatus.toString();
+            arr.push({
+                tokenId,
+                clientName,
+                systemName,
+                maintenanceName,
+                systemCycles,
+                estimatedTime,
+                startTime,
+                taskCost,
+                genStatus,
+                execStatus,
+                repairman,
+                qualityInspector,
+            });
+        }
+        return arr;
+    }
 };
 exports.AppService = AppService;
 exports.AppService = AppService = __decorate([

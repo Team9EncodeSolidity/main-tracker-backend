@@ -25,6 +25,9 @@ let AppController = class AppController {
     async getTrackerAddress() {
         return { result: await this.appService.getTrackerAddress() };
     }
+    async getTasksList() {
+        return { result: await this.appService.getTasksList() };
+    }
 };
 exports.AppController = AppController;
 __decorate([
@@ -40,11 +43,17 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AppController.prototype, "getTokenAddress", null);
 __decorate([
-    (0, common_1.Get)('/token-contract-abi'),
+    (0, common_1.Get)('/tracker-contract-address'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], AppController.prototype, "getTrackerAddress", null);
+__decorate([
+    (0, common_1.Get)('tasks-list'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "getTasksList", null);
 exports.AppController = AppController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [app_service_1.AppService])

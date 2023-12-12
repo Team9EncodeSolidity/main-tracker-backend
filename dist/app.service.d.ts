@@ -10,4 +10,5 @@ export declare class AppService {
     getHello(): string;
     getTrackerAddress(): Promise<string>;
     getTokenAddress(): Promise<string>;
+    getTasksList(): Promise<object[]>;
 }

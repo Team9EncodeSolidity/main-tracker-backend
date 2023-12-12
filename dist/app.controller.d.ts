@@ -9,4 +9,7 @@ export declare class AppController {
     getTrackerAddress(): Promise<{
         result: string;
     }>;
+    getTasksList(): Promise<{
+        result: object[];
+    }>;
 }
