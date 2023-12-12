@@ -10,6 +10,14 @@ export declare class AppController {
     getTrackerAddress(): Promise<{
         result: string | import("@nestjs/common").BadRequestException;
     }>;
+    setTrackerCtAddr(body: {
+        address: string;
+    }): Promise<{
+        result: {
+            tokenAddress: any;
+            trackerAddress: any;
+        };
+    }>;
     getTasksList(): Promise<{
         result: import("@nestjs/common").BadRequestException | object[];
     }>;

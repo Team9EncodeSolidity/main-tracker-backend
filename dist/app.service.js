@@ -54,6 +54,11 @@ let AppService = class AppService {
             return new common_1.BadRequestException('Err:WrongTokenCt', e);
         }
     }
+    async setTrackerCtAddr({ address: trackerAddress }) {
+        this.trackerContract = new ethers_1.ethers.Contract(trackerAddress, trackerJson.abi, this.wallet);
+        const tokenAddress = await this.trackerContract?.tokenContract();
+        return { tokenAddress, trackerAddress };
+    }
     async getTasksList() {
         try {
             const idCounter = await this.trackerContract.tokenIdCounter();

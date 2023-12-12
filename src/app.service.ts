@@ -75,6 +75,16 @@ export class AppService {
     }
   }
 
+  async setTrackerCtAddr({ address: trackerAddress }) {
+    this.trackerContract = new ethers.Contract(
+      trackerAddress,
+      trackerJson.abi,
+      this.wallet,
+    );
+    const tokenAddress = await this.trackerContract?.tokenContract();
+    return { tokenAddress, trackerAddress }; // console.log({ tokenAddress, trackerAddress })
+  }
+
   async getTasksList() {
     try {
       const idCounter = await this.trackerContract.tokenIdCounter();

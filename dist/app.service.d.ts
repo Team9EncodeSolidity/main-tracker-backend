@@ -13,5 +13,11 @@ export declare class AppService {
     getBlockNumber(): Promise<number>;
     getTrackerAddress(): Promise<string | BadRequestException>;
     getTokenAddress(): Promise<string | BadRequestException>;
+    setTrackerCtAddr({ address: trackerAddress }: {
+        address: any;
+    }): Promise<{
+        tokenAddress: any;
+        trackerAddress: any;
+    }>;
     getTasksList(): Promise<BadRequestException | object[]>;
 }
