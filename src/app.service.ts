@@ -225,7 +225,6 @@ export class AppService {
       for (let i = 0; i < Number(idCounter); i++) {
         const id = i;
         const nftUri = await this.trackerContract.tokenURI(id);
-        console.log({ nftUri });
         const nftId = i.toString();
         arr.push({ nftId, nftUri });
       }
@@ -233,5 +232,15 @@ export class AppService {
     } catch (e) {
       return new BadRequestException('Err:ProblemWithTrackerCt', e);
     }
+  }
+
+  async getNftById(id: string) {
+    const idCounter = await this.trackerContract.tokenIdCounter();
+    const idNumber = Number(id);
+    if (idNumber + 1 > idCounter) {
+      return new BadRequestException('Err:ThisIdDoesNotExist');
+    }
+    const nftUri = await this.trackerContract.tokenURI(id);
+    return nftUri;
   }
 }

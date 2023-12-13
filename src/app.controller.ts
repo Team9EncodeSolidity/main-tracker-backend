@@ -66,12 +66,17 @@ export class AppController {
   }
 
   @Get('/task/:id')
-  async getTask(@Param('id') id: string) {
+  async getTaskById(@Param('id') id: string) {
     return { result: await this.appService.getTaskById(id) };
   }
 
   @Get('/nfts-list')
   async getNftsList() {
     return { result: await this.appService.getNftsList() };
+  }
+
+  @Get('/nft/:id')
+  async getNftById(@Param('id') id: string) {
+    return { result: await this.appService.getNftById(id) };
   }
 }
