@@ -89,4 +89,19 @@ export class AppController {
   async getNftDecodedById(@Param('id') id: string) {
     return { result: await this.appService.getNftDecodedById(id) };
   }
+
+  @Get('/balance-of/eth/:address')
+  async balanceOfEth(@Param('address') address: string) {
+    return { result: await this.appService.balanceOfEth(address) };
+  }
+
+  @Get('/balance-of/tokens/:address')
+  async balanceOfTokens(@Param('address') address: string) {
+    return { result: await this.appService.balanceOfTokens(address) };
+  }
+
+  @Post('/withdraw-treasury-eth')
+  async withdrawTreasuryEth(@Body() body = {}) {
+    return { result: await this.appService.withdrawTreasuryEth(body) };
+  }
 }

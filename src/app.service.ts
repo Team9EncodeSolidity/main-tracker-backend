@@ -277,4 +277,28 @@ export class AppService {
     const decodedJson = JSON.parse(jsonStr);
     return { nftMetadata: decodedJson };
   }
+
+  async balanceOfEth(address: string) {
+    const balWei = await this.provider.getBalance(address);
+    const balEth = ethers.formatEther(balWei.toString());
+    const balWeiStr = balWei.toString();
+    return { balanceWei: balWeiStr, balanceEth: balEth };
+  }
+
+  async balanceOfTokens(address: string) {
+    const balUnits = await this.tokenContract.balanceOf(address);
+    const balFinal = ethers.formatEther(balUnits.toString());
+    const balUnitsStr = balUnits.toString();
+    return { balanceUnits: balFinal, balanceTokens: balUnitsStr };
+  }
+
+  async withdrawTreasuryEth(args: any) {
+    if (Object.keys(args).length) {
+      return new BadRequestException('Err:NoArgsPls');
+    }
+    const trackerContract = this.trackerContract;
+    const tx = await trackerContract.withdrawTreasuryEthAndBurn();
+    await tx.wait();
+    return { txHash: tx?.hash };
+  }
 }
