@@ -5,6 +5,7 @@ import {
   DeployTrackerContract,
   GrantMintRole,
   TaskIdToComplete,
+  OpenTask,
 } from './dtos/app.dto';
 
 @Controller()
@@ -111,4 +112,8 @@ export class AppController {
     return { result: await this.appService.completeTask(body) };
   }
 
+  @Post('/open-task')
+  async openTask(@Body() body: OpenTask) {
+    return { result: await this.appService.openTask(body) };
+  }
 }
