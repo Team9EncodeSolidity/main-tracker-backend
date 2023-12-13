@@ -345,4 +345,15 @@ export class AppService {
     await tx.wait();
     return { txHash: tx?.hash };
   }
+  
+  async certifyTask(args: any) {
+    if (Object.keys(args).length > 1) {
+      return new BadRequestException('Err:NoArgsPls');
+    }
+    const trackerContract = this.trackerContract;
+
+    const tx = await trackerContract.certifyTask(Number(args.id));
+    await tx.wait();
+    return { txHash: tx?.hash };
+  } 
 }
