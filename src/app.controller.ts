@@ -110,4 +110,5 @@ export class AppController {
   async completeTask(@Body() body: TaskIdToComplete) {
     return { result: await this.appService.completeTask(body) };
   }
+
 }
