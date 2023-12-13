@@ -9,6 +9,7 @@ import {
   TaskIdToCertify,
   ApproveBody,
   BuyTokensBody,
+  PayForTask
 } from './dtos/app.dto';
 
 @Controller()
@@ -54,7 +55,6 @@ export class AppController {
   async deployTrackerContract(@Body() body: DeployTrackerContract) {
     return { result: await this.appService.deployTrackerContract(body) };
   }
-
   @Post('/set-tracker-contract-address')
   async setTrackerCtAddr(@Body() body: SetTrackerCtAddrDto) {
     return { result: await this.appService.setTrackerCtAddr(body) };
@@ -63,6 +63,10 @@ export class AppController {
   @Post('/grant-mint-role')
   async grantMintRole(@Body() body: GrantMintRole) {
     return { result: await this.appService.grantMintRole(body) };
+  }
+  @Post('/pay-for-task')
+  async payForTaskContract(@Body() body: PayForTask) {
+    return { result: await this.appService.payForTaskContract(body) };
   }
 
   @Get('/tasks-list')
