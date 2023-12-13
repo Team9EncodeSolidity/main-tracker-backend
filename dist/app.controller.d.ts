@@ -130,4 +130,12 @@ export declare class AppController {
     getNftById(id: string): Promise<{
         result: any;
     }>;
+    getNftsDecodedList(): Promise<{
+        result: import("@nestjs/common").BadRequestException | object[];
+    }>;
+    getNftDecodedById(id: string): Promise<{
+        result: import("@nestjs/common").BadRequestException | {
+            nftMetadata: any;
+        };
+    }>;
 }

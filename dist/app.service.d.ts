@@ -116,4 +116,8 @@ export declare class AppService {
     }>;
     getNftsList(): Promise<BadRequestException | object[]>;
     getNftById(id: string): Promise<any>;
+    getNftsDecodedList(): Promise<BadRequestException | object[]>;
+    getNftDecodedById(id: string): Promise<BadRequestException | {
+        nftMetadata: any;
+    }>;
 }
