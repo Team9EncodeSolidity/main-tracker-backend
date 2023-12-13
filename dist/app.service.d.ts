@@ -101,4 +101,19 @@ export declare class AppService {
         txHash: any;
     }>;
     getTasksList(): Promise<BadRequestException | object[]>;
+    getTaskById(id: string): Promise<BadRequestException | {
+        clientName: any;
+        systemName: any;
+        maintenanceName: any;
+        systemCycles: any;
+        estimatedTime: any;
+        startTime: any;
+        cost: string;
+        generalStatus: any;
+        executionStatus: any;
+        repairman: any;
+        qualityInspector: any;
+    }>;
+    getNftsList(): Promise<BadRequestException | object[]>;
+    getNftById(id: string): Promise<any>;
 }

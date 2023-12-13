@@ -109,4 +109,25 @@ export declare class AppController {
     getTasksList(): Promise<{
         result: import("@nestjs/common").BadRequestException | object[];
     }>;
+    getTaskById(id: string): Promise<{
+        result: import("@nestjs/common").BadRequestException | {
+            clientName: any;
+            systemName: any;
+            maintenanceName: any;
+            systemCycles: any;
+            estimatedTime: any;
+            startTime: any;
+            cost: string;
+            generalStatus: any;
+            executionStatus: any;
+            repairman: any;
+            qualityInspector: any;
+        };
+    }>;
+    getNftsList(): Promise<{
+        result: import("@nestjs/common").BadRequestException | object[];
+    }>;
+    getNftById(id: string): Promise<{
+        result: any;
+    }>;
 }

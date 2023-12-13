@@ -132,6 +132,57 @@ let AppService = class AppService {
             return new common_1.BadRequestException('Err:ProblemWithTrackerCt', e);
         }
     }
+    async getTaskById(id) {
+        const idCounter = await this.trackerContract.tokenIdCounter();
+        const idNumber = Number(id);
+        if (idNumber + 1 > idCounter) {
+            return new common_1.BadRequestException('Err:ThisIdDoesNotExist');
+        }
+        const task = await this.trackerContract.maintenanceTasks(id);
+        const { clientName, systemName, maintenanceName, systemCycles, estimatedTime, startTime, cost, generalStatus, executionStatus, repairman, qualityInspector, } = task;
+        const taskCost = ethers_1.ethers.formatEther(cost.toString());
+        const genStatus = generalStatus.toString();
+        const execStatus = executionStatus.toString();
+        const taskInformation = {
+            clientName,
+            systemName,
+            maintenanceName,
+            systemCycles,
+            estimatedTime,
+            startTime,
+            cost: taskCost,
+            generalStatus: genStatus,
+            executionStatus: execStatus,
+            repairman,
+            qualityInspector,
+        };
+        return taskInformation;
+    }
+    async getNftsList() {
+        try {
+            const idCounter = await this.trackerContract.tokenIdCounter();
+            const arr = [];
+            for (let i = 0; i < Number(idCounter); i++) {
+                const id = i;
+                const nftUri = await this.trackerContract.tokenURI(id);
+                const nftId = i.toString();
+                arr.push({ nftId, nftUri });
+            }
+            return arr;
+        }
+        catch (e) {
+            return new common_1.BadRequestException('Err:ProblemWithTrackerCt', e);
+        }
+    }
+    async getNftById(id) {
+        const idCounter = await this.trackerContract.tokenIdCounter();
+        const idNumber = Number(id);
+        if (idNumber + 1 > idCounter) {
+            return new common_1.BadRequestException('Err:ThisIdDoesNotExist');
+        }
+        const nftUri = await this.trackerContract.tokenURI(id);
+        return nftUri;
+    }
 };
 exports.AppService = AppService;
 exports.AppService = AppService = __decorate([

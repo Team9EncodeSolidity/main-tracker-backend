@@ -53,6 +53,15 @@ let AppController = class AppController {
     async getTasksList() {
         return { result: await this.appService.getTasksList() };
     }
+    async getTaskById(id) {
+        return { result: await this.appService.getTaskById(id) };
+    }
+    async getNftsList() {
+        return { result: await this.appService.getNftsList() };
+    }
+    async getNftById(id) {
+        return { result: await this.appService.getNftById(id) };
+    }
 };
 exports.AppController = AppController;
 __decorate([
@@ -125,6 +134,26 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], AppController.prototype, "getTasksList", null);
+__decorate([
+    (0, common_1.Get)('/task/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "getTaskById", null);
+__decorate([
+    (0, common_1.Get)('/nfts-list'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "getNftsList", null);
+__decorate([
+    (0, common_1.Get)('/nft/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "getNftById", null);
 exports.AppController = AppController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [app_service_1.AppService])
