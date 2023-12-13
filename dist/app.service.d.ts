@@ -120,4 +120,15 @@ export declare class AppService {
     getNftDecodedById(id: string): Promise<BadRequestException | {
         nftMetadata: any;
     }>;
+    balanceOfEth(address: string): Promise<{
+        balanceWei: string;
+        balanceEth: string;
+    }>;
+    balanceOfTokens(address: string): Promise<{
+        balanceUnits: string;
+        balanceTokens: any;
+    }>;
+    withdrawTreasuryEth(args: any): Promise<BadRequestException | {
+        txHash: any;
+    }>;
 }

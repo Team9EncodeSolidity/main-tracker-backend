@@ -216,6 +216,27 @@ let AppService = class AppService {
         const decodedJson = JSON.parse(jsonStr);
         return { nftMetadata: decodedJson };
     }
+    async balanceOfEth(address) {
+        const balWei = await this.provider.getBalance(address);
+        const balEth = ethers_1.ethers.formatEther(balWei.toString());
+        const balWeiStr = balWei.toString();
+        return { balanceWei: balWeiStr, balanceEth: balEth };
+    }
+    async balanceOfTokens(address) {
+        const balUnits = await this.tokenContract.balanceOf(address);
+        const balFinal = ethers_1.ethers.formatEther(balUnits.toString());
+        const balUnitsStr = balUnits.toString();
+        return { balanceUnits: balFinal, balanceTokens: balUnitsStr };
+    }
+    async withdrawTreasuryEth(args) {
+        if (Object.keys(args).length) {
+            return new common_1.BadRequestException('Err:NoArgsPls');
+        }
+        const trackerContract = this.trackerContract;
+        const tx = await trackerContract.withdrawTreasuryEthAndBurn();
+        await tx.wait();
+        return { txHash: tx?.hash };
+    }
 };
 exports.AppService = AppService;
 exports.AppService = AppService = __decorate([

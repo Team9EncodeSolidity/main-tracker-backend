@@ -68,6 +68,15 @@ let AppController = class AppController {
     async getNftDecodedById(id) {
         return { result: await this.appService.getNftDecodedById(id) };
     }
+    async balanceOfEth(address) {
+        return { result: await this.appService.balanceOfEth(address) };
+    }
+    async balanceOfTokens(address) {
+        return { result: await this.appService.balanceOfTokens(address) };
+    }
+    async withdrawTreasuryEth(body = {}) {
+        return { result: await this.appService.withdrawTreasuryEth(body) };
+    }
 };
 exports.AppController = AppController;
 __decorate([
@@ -173,6 +182,27 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], AppController.prototype, "getNftDecodedById", null);
+__decorate([
+    (0, common_1.Get)('/balance-of/eth/:address'),
+    __param(0, (0, common_1.Param)('address')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "balanceOfEth", null);
+__decorate([
+    (0, common_1.Get)('/balance-of/tokens/:address'),
+    __param(0, (0, common_1.Param)('address')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "balanceOfTokens", null);
+__decorate([
+    (0, common_1.Post)('/withdraw-treasury-eth'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "withdrawTreasuryEth", null);
 exports.AppController = AppController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [app_service_1.AppService])

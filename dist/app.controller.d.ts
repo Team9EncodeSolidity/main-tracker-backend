@@ -138,4 +138,21 @@ export declare class AppController {
             nftMetadata: any;
         };
     }>;
+    balanceOfEth(address: string): Promise<{
+        result: {
+            balanceWei: string;
+            balanceEth: string;
+        };
+    }>;
+    balanceOfTokens(address: string): Promise<{
+        result: {
+            balanceUnits: string;
+            balanceTokens: any;
+        };
+    }>;
+    withdrawTreasuryEth(body?: {}): Promise<{
+        result: import("@nestjs/common").BadRequestException | {
+            txHash: any;
+        };
+    }>;
 }
