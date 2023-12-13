@@ -368,4 +368,20 @@ export class AppService {
     await tx.wait();
     return { txHash: tx?.hash };
   }
+
+  async buyTokensAndSpendEth(args: any) {
+    if (Object.keys(args).length > 1) {
+      return new BadRequestException('Err:NoMoreThanOneArgPls');
+    }
+    const { amount } = args;
+    const trackerContract = this.trackerContract;
+    const ratio = await trackerContract.purchaseRatio();
+    console.log({ amount });
+    console.log({ ratio });
+    const tx = await trackerContract.buyTokens({
+      value: BigInt(amount) / BigInt(ratio),
+    });
+    await tx.wait();
+    return { txHash: tx?.hash };
+  }
 }

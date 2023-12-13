@@ -88,3 +88,12 @@ export class ApproveBody {
   })
   amount: string;
 }
+
+export class BuyTokensBody {
+  @ApiProperty({
+    type: String,
+    required: true,
+    default: '1000000000000000000',
+  })
+  amount: string;
+}
