@@ -8,6 +8,7 @@ import {
   OpenTask,
   TaskIdToCertify,
   ApproveBody,
+  BuyTokensBody,
 } from './dtos/app.dto';
 
 @Controller()
@@ -127,5 +128,10 @@ export class AppController {
   @Post('/approve')
   async approveSpending(@Body() body: ApproveBody) {
     return { result: await this.appService.approveSpending(body) };
+  }
+
+  @Post('/buy-tokens')
+  async buyTokensAndSpendEth(@Body() body: BuyTokensBody) {
+    return { result: await this.appService.buyTokensAndSpendEth(body) };
   }
 }
