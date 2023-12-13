@@ -79,3 +79,12 @@ export class OpenTask {
   @ApiProperty({ type: String, required: true, default: '0x0000000000000000000000000000000000000000', })
   qualityInspector: string;
 }
+
+export class ApproveBody {
+  @ApiProperty({
+    type: String,
+    required: true,
+    default: '10000000000000000000',
+  })
+  amount: string;
+}

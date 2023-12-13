@@ -356,4 +356,16 @@ export class AppService {
     await tx.wait();
     return { txHash: tx?.hash };
   } 
+
+  async approveSpending(args: any) {
+    if (Object.keys(args).length > 2) {
+      return new BadRequestException('Err:TooManyArgs');
+    }
+    const tokenContract = this.tokenContract;
+    const tokenContractAddr = await this.getTokenAddress();
+    const amount = args.amount;
+    const tx = await tokenContract.approve(tokenContractAddr, amount);
+    await tx.wait();
+    return { txHash: tx?.hash };
+  }
 }

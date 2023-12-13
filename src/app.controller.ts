@@ -7,6 +7,7 @@ import {
   TaskIdToComplete,
   OpenTask,
   TaskIdToCertify,
+  ApproveBody,
 } from './dtos/app.dto';
 
 @Controller()
@@ -123,4 +124,8 @@ export class AppController {
     return { result: await this.appService.certifyTask(body) };
   }
 
+  @Post('/approve')
+  async approveSpending(@Body() body: ApproveBody) {
+    return { result: await this.appService.approveSpending(body) };
+  }
 }
