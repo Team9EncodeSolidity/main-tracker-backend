@@ -1,5 +1,5 @@
 import { AppService } from './app.service';
-import { SetTrackerCtAddrDto, DeployTrackerContract, GrantMintRole } from './dtos/app.dto';
+import { SetTrackerCtAddrDto, DeployTrackerContract, GrantMintRole, PayForTask } from './dtos/app.dto';
 export declare class AppController {
     private readonly appService;
     constructor(appService: AppService);
@@ -94,6 +94,9 @@ export declare class AppController {
     }>;
     deployTrackerContract(body: DeployTrackerContract): Promise<{
         result: string | import("@nestjs/common").BadRequestException;
+    }>;
+    payForTaskContract(body: PayForTask): Promise<{
+        result: import("@nestjs/common").BadRequestException;
     }>;
     setTrackerCtAddr(body: SetTrackerCtAddrDto): Promise<{
         result: {

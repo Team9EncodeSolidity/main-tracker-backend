@@ -3,6 +3,9 @@ import { ConfigService } from '@nestjs/config';
 import { ethers } from 'ethers';
 import * as tokenJson from './assets/MaintenanceToken.json';
 import * as trackerJson from './assets/MaintenanceTracker.json';
+import * as FormData from 'form-data';
+import * as fs from 'fs';
+import axios from 'axios';
 
 @Injectable()
 export class AppService {
@@ -113,6 +116,51 @@ export class AppService {
     return newCtAddr;
   }
 
+  async payForTaskContract({tokenId, address}){
+    const taskDetails = await this.trackerContract.maintenanceTasks(tokenId);
+    const _cost = taskDetails.cost;
+    if(_cost > this.trackerContract.balanceOf(address)){
+      return new BadRequestException('Err:NotEnoughBalance');
+    }
+    const taskCost = ethers.formatEther(_cost.toString());
+    const pinataDetails= await this.fileuploadtoPinata()
+    this.trackerContract.payForTask(tokenId, taskCost ,`ipfs://${pinataDetails?.IpfsHash}`,"ipfs://bafybeifj3wz462zils26mztyepwfzhxlxe557k3sptm3yfcplorw7xlpoi")
+  }
+  async fileuploadtoPinata(){
+    const formData = new FormData();
+    const src = "C:/Users/Gagan Arora/Car_maintainace_tracker/main-tracker-backend/src/assets/download.jpg"
+    
+    const file = fs.createReadStream(src)
+    formData.append('file', file)
+    
+    const pinataMetadata = "https://www.encode.club/solidity-bootcamps"
+    formData.append('pinataMetadata', pinataMetadata);
+    
+    const pinataOptions = JSON.stringify({
+      cidVersion: 0,
+    })
+    formData.append('pinataOptions', pinataOptions);
+    console.log("==Form==>", formData);
+    try {
+      const JWT = this.configService.get<string>(
+        'JWT',
+        process.env.JWT,
+      );
+      const res = await axios.post("https://api.pinata.cloud/pinning/pinFileToIPFS", formData, {
+        maxBodyLength: Infinity,
+        headers: {
+          'Content-Type': `multipart/form-data; boundary=${formData.getBoundary()}`,
+          Authorization: JWT,
+        },
+      });
+
+      console.log("==IPHash>>",res.data);
+      return res.data;
+    } catch (error) {
+      console.error("==ERR>>",error);
+    }
+
+  }
   async setTrackerCtAddr({ address: trackerAddress }) {
     this.trackerContract = new ethers.Contract(
       trackerAddress,

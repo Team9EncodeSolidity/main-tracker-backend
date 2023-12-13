@@ -44,6 +44,9 @@ let AppController = class AppController {
     async deployTrackerContract(body) {
         return { result: await this.appService.deployTrackerContract(body) };
     }
+    async payForTaskContract(body) {
+        return { result: await this.appService.payForTaskContract(body) };
+    }
     async setTrackerCtAddr(body) {
         return { result: await this.appService.setTrackerCtAddr(body) };
     }
@@ -129,6 +132,13 @@ __decorate([
     __metadata("design:paramtypes", [app_dto_1.DeployTrackerContract]),
     __metadata("design:returntype", Promise)
 ], AppController.prototype, "deployTrackerContract", null);
+__decorate([
+    (0, common_1.Post)('/pay-for-task'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [app_dto_1.PayForTask]),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "payForTaskContract", null);
 __decorate([
     (0, common_1.Post)('/set-tracker-contract-address'),
     __param(0, (0, common_1.Body)()),

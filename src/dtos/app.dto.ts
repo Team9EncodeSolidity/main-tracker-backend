@@ -9,6 +9,21 @@ export class SetTrackerCtAddrDto {
   address: string;
 }
 
+export class PayForTask {
+  @ApiProperty({
+    type: String,
+    required: true,
+    default: "0",
+  })
+  tokenId:string
+  @ApiProperty({
+    type: String,
+    required: true,
+    default: '0x0000000000000000000000000000000000000000',
+  })
+  address: string;
+  
+}
 export class DeployTrackerContract {
   @ApiProperty({
     type: String,

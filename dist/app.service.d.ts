@@ -89,6 +89,11 @@ export declare class AppService {
     })[]>;
     deployTokenContract(args: any): Promise<string | BadRequestException>;
     deployTrackerContract(args: any): Promise<string | BadRequestException>;
+    payForTaskContract({ tokenId, address }: {
+        tokenId: any;
+        address: any;
+    }): Promise<BadRequestException>;
+    fileuploadtoPinata(): Promise<any>;
     setTrackerCtAddr({ address: trackerAddress }: {
         address: any;
     }): Promise<{

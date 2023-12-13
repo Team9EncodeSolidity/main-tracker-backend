@@ -4,6 +4,7 @@ import {
   SetTrackerCtAddrDto,
   DeployTrackerContract,
   GrantMintRole,
+  PayForTask
 } from './dtos/app.dto';
 
 @Controller()
@@ -48,6 +49,11 @@ export class AppController {
   @Post('/deploy-tracker-contract')
   async deployTrackerContract(@Body() body: DeployTrackerContract) {
     return { result: await this.appService.deployTrackerContract(body) };
+  }
+
+  @Post('/pay-for-task')
+  async payForTaskContract(@Body() body: PayForTask) {
+    return { result: await this.appService.payForTaskContract(body) };
   }
 
   @Post('/set-tracker-contract-address')
