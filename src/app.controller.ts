@@ -4,6 +4,7 @@ import {
   SetTrackerCtAddrDto,
   DeployTrackerContract,
   GrantMintRole,
+  OpenTask,
 } from './dtos/app.dto';
 
 @Controller()
@@ -103,5 +104,10 @@ export class AppController {
   @Post('/withdraw-treasury-eth')
   async withdrawTreasuryEth(@Body() body = {}) {
     return { result: await this.appService.withdrawTreasuryEth(body) };
+  }
+
+  @Post('/open-task')
+  async openTask(@Body() body: OpenTask) {
+    return { result: await this.appService.openTask(body) };
   }
 }

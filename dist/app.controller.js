@@ -77,6 +77,9 @@ let AppController = class AppController {
     async withdrawTreasuryEth(body = {}) {
         return { result: await this.appService.withdrawTreasuryEth(body) };
     }
+    async openTask(body) {
+        return { result: await this.appService.openTask(body) };
+    }
 };
 exports.AppController = AppController;
 __decorate([
@@ -203,6 +206,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AppController.prototype, "withdrawTreasuryEth", null);
+__decorate([
+    (0, common_1.Post)('/open-task'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [app_dto_1.OpenTask]),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "openTask", null);
 exports.AppController = AppController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [app_service_1.AppService])

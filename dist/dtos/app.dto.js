@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GrantMintRole = exports.DeployTrackerContract = exports.SetTrackerCtAddrDto = void 0;
+exports.OpenTask = exports.GrantMintRole = exports.DeployTrackerContract = exports.SetTrackerCtAddrDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
 class SetTrackerCtAddrDto {
 }
@@ -52,4 +52,43 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], GrantMintRole.prototype, "address", void 0);
+class OpenTask {
+}
+exports.OpenTask = OpenTask;
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: String, required: true, default: '', }),
+    __metadata("design:type", String)
+], OpenTask.prototype, "clientName", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: String, required: true, default: '', }),
+    __metadata("design:type", String)
+], OpenTask.prototype, "systemName", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: String, required: true, default: '', }),
+    __metadata("design:type", String)
+], OpenTask.prototype, "maintenanceName", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: String, required: true, default: '0', }),
+    __metadata("design:type", String)
+], OpenTask.prototype, "systemCycles", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: String, required: true, default: '0', }),
+    __metadata("design:type", String)
+], OpenTask.prototype, "estimatedTime", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: String, required: true, default: '0', }),
+    __metadata("design:type", String)
+], OpenTask.prototype, "startTime", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: String, required: true, default: '1', }),
+    __metadata("design:type", String)
+], OpenTask.prototype, "cost", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: String, required: true, default: '0x00000000000000000000000000000000000000000', }),
+    __metadata("design:type", String)
+], OpenTask.prototype, "repairman", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: String, required: true, default: '0x0000000000000000000000000000000000000000', }),
+    __metadata("design:type", String)
+], OpenTask.prototype, "qualityInspector", void 0);
 //# sourceMappingURL=app.dto.js.map

@@ -131,4 +131,7 @@ export declare class AppService {
     withdrawTreasuryEth(args: any): Promise<BadRequestException | {
         txHash: any;
     }>;
+    openTask(args: any): Promise<BadRequestException | {
+        txHash: any;
+    }>;
 }

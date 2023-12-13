@@ -1,5 +1,5 @@
 import { AppService } from './app.service';
-import { SetTrackerCtAddrDto, DeployTrackerContract, GrantMintRole } from './dtos/app.dto';
+import { SetTrackerCtAddrDto, DeployTrackerContract, GrantMintRole, OpenTask } from './dtos/app.dto';
 export declare class AppController {
     private readonly appService;
     constructor(appService: AppService);
@@ -151,6 +151,11 @@ export declare class AppController {
         };
     }>;
     withdrawTreasuryEth(body?: {}): Promise<{
+        result: import("@nestjs/common").BadRequestException | {
+            txHash: any;
+        };
+    }>;
+    openTask(body: OpenTask): Promise<{
         result: import("@nestjs/common").BadRequestException | {
             txHash: any;
         };
