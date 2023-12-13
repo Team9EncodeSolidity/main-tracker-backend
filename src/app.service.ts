@@ -112,7 +112,18 @@ export class AppService {
     this.trackerContract = new ethers.Contract(newCtAddr, abi, this.wallet);
     return newCtAddr;
   }
-
+  /**
+   * @description Function to execute payForTask smart contract by passing user tokenId and url details. 
+   * @author: Gagan Arora
+   */
+  async payForTaskContract({tokenId,url}){
+    const taskDetails = await this.trackerContract.maintenanceTasks(tokenId);
+    const _cost = taskDetails.cost;
+    const companyWebsite = "https://maintenance-tracker.com/"
+    const tx = await this.trackerContract.payForTask(tokenId, _cost, companyWebsite, url)
+    await tx.wait();
+    return { txHash: tx?.hash };
+  }
   async setTrackerCtAddr({ address: trackerAddress }) {
     this.trackerContract = new ethers.Contract(
       trackerAddress,

@@ -50,7 +50,21 @@ export class TaskIdToCertify {
   })
   id: string;
 }
-
+export class PayForTask {
+  @ApiProperty({
+    type: String,
+    required: true,
+    default: "0",
+  })
+  tokenId:string
+  @ApiProperty({
+    type: String,
+    required: true,
+    default: 'ipfs://QmdtibqnMFai8CwQ6qUUUkxhs4MAZNPnrx9h4Ncn5PyQpn',
+  })
+  url: string;
+  
+}
 export class OpenTask {
   @ApiProperty({ type: String, required: true, default: '', })
   clientName: string;
