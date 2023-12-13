@@ -6,6 +6,7 @@ import {
   GrantMintRole,
   TaskIdToComplete,
   OpenTask,
+  TaskIdToCertify,
 } from './dtos/app.dto';
 
 @Controller()
@@ -116,4 +117,10 @@ export class AppController {
   async openTask(@Body() body: OpenTask) {
     return { result: await this.appService.openTask(body) };
   }
+
+  @Post('/certify-task')
+  async certifyTask(@Body() body: TaskIdToCertify) {
+    return { result: await this.appService.certifyTask(body) };
+  }
+
 }

@@ -42,6 +42,15 @@ export class TaskIdToComplete {
   id: string;
 }
 
+export class TaskIdToCertify {
+  @ApiProperty({
+    type: String,
+    required: true,
+    default: '0',
+  })
+  id: string;
+}
+
 export class OpenTask {
   @ApiProperty({ type: String, required: true, default: '', })
   clientName: string;
