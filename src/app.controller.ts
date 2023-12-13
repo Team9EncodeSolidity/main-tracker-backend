@@ -79,4 +79,14 @@ export class AppController {
   async getNftById(@Param('id') id: string) {
     return { result: await this.appService.getNftById(id) };
   }
+
+  @Get('/nfts-decoded-list')
+  async getNftsDecodedList() {
+    return { result: await this.appService.getNftsDecodedList() };
+  }
+
+  @Get('/nft-decoded/:id')
+  async getNftDecodedById(@Param('id') id: string) {
+    return { result: await this.appService.getNftDecodedById(id) };
+  }
 }

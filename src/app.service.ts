@@ -243,4 +243,38 @@ export class AppService {
     const nftUri = await this.trackerContract.tokenURI(id);
     return nftUri;
   }
+
+  async getNftsDecodedList() {
+    const prefix = 'data:application/json;base64,';
+    try {
+      const idCounter = await this.trackerContract.tokenIdCounter();
+      const arr: object[] = [];
+      for (let i = 0; i < Number(idCounter); i++) {
+        const id = i;
+        const nftUri = await this.trackerContract.tokenURI(id);
+        const nftId = i.toString();
+        const base64str = nftUri.replace(prefix, '');
+        const jsonStr = Buffer.from(base64str, 'base64').toString('utf8');
+        const decodedJson = JSON.parse(jsonStr);
+        arr.push({ nftId, nftMetadata: decodedJson });
+      }
+      return arr;
+    } catch (e) {
+      return new BadRequestException('Err:ProblemWithTrackerCt', e);
+    }
+  }
+
+  async getNftDecodedById(id: string) {
+    const prefix = 'data:application/json;base64,';
+    const idCounter = await this.trackerContract.tokenIdCounter();
+    const idNumber = Number(id);
+    if (idNumber + 1 > idCounter) {
+      return new BadRequestException('Err:ThisIdDoesNotExist');
+    }
+    const nftUri = await this.trackerContract.tokenURI(id);
+    const base64str = nftUri.replace(prefix, '');
+    const jsonStr = Buffer.from(base64str, 'base64').toString('utf8');
+    const decodedJson = JSON.parse(jsonStr);
+    return { nftMetadata: decodedJson };
+  }
 }
