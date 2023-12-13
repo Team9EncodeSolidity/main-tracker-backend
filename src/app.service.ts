@@ -130,16 +130,6 @@ export class AppService {
     return { txHash: tx?.hash };
   }
 
-  async setTrackerCtAddr({ address: trackerAddress }) {
-    this.trackerContract = new ethers.Contract(
-      trackerAddress,
-      trackerJson.abi,
-      this.wallet,
-    );
-    const tokenAddress = await this.trackerContract?.tokenContract();
-    return { tokenAddress, trackerAddress }; // console.log({ tokenAddress, trackerAddress })
-  }
-
   async getTasksList() {
     try {
       const idCounter = await this.trackerContract.tokenIdCounter();
@@ -322,5 +312,37 @@ export class AppService {
     await tx.wait();
     return { txHash: tx?.hash };
   }
-
+  
+  async openTask(args: any) {
+    console.log(JSON.stringify(args));
+    if (!Object.keys(args).length) {
+      return new BadRequestException('Err:NoArgsPls');
+    }
+    const { 
+      clientName, 
+      systemName,
+      maintenanceName,
+      systemCycles,
+      estimatedTime,
+      startTime,
+      cost,
+      repairman,
+      qualityInspector,
+    } = args;
+    
+    const trackerContract = this.trackerContract;
+    const tx = await trackerContract.openMaintenanceTask(
+      clientName, 
+      systemName,
+      maintenanceName,
+      systemCycles,
+      estimatedTime,
+      startTime,
+      ethers.parseUnits(cost),
+      repairman,
+      qualityInspector,
+    );
+    await tx.wait();
+    return { txHash: tx?.hash };
+  }
 }
