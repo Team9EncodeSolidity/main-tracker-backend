@@ -8,3 +8,6 @@ export declare class DeployTrackerContract {
 export declare class GrantMintRole {
     address: string;
 }
+export declare class TaskIdToComplete {
+    id: string;
+}

@@ -32,3 +32,12 @@ export class GrantMintRole {
   })
   address: string;
 }
+
+export class TaskIdToComplete {
+  @ApiProperty({
+    type: String,
+    required: true,
+    default: '0',
+  })
+  id: string;
+}

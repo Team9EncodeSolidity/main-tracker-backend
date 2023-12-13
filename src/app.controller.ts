@@ -4,11 +4,12 @@ import {
   SetTrackerCtAddrDto,
   DeployTrackerContract,
   GrantMintRole,
+  TaskIdToComplete,
 } from './dtos/app.dto';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService) { }
 
   @Get('/')
   getHello(): string {
@@ -104,4 +105,10 @@ export class AppController {
   async withdrawTreasuryEth(@Body() body = {}) {
     return { result: await this.appService.withdrawTreasuryEth(body) };
   }
+
+  @Post('/complete-task')
+  async completeTask(@Body() body: TaskIdToComplete) {
+    return { result: await this.appService.completeTask(body) };
+  }
+
 }
