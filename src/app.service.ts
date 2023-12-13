@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ethers } from 'ethers';
 import * as tokenJson from './assets/MaintenanceToken.json';
@@ -34,11 +34,13 @@ export class AppService {
       trackerJson.abi,
       this.wallet,
     );
-    this.setTokenContract();
+    this.utilsSetTokenContract();
   }
-  
-  async setTokenContract() {
-    const tokenAddress = await this.trackerContract.tokenContract();
+
+  private async utilsSetTokenContract() {
+    const tokenAddress = this.trackerContract
+      ? (await this.trackerContract?.tokenContract()).toString()
+      : ethers.ZeroAddress;
     this.tokenContract = new ethers.Contract(
       tokenAddress,
       tokenJson.abi,
@@ -50,58 +52,85 @@ export class AppService {
     return 'Main Backend App Running OK. Go to .../api/ for more!';
   }
 
+  async getBlockNumber() {
+    const { provider } = this;
+    const blkNum = await provider.getBlockNumber();
+    const lastBlkNum = blkNum | 0;
+    return lastBlkNum;
+  }
+
   async getTrackerAddress() {
-    return this.trackerContract.target.toString();
+    try {
+      return this.trackerContract.target.toString();
+    } catch (e) {
+      return new BadRequestException('Err:WrongTrackerCt', e);
+    }
   }
 
   async getTokenAddress() {
-    return this.tokenContract.target.toString();
-  }
-  async getTasksList() {
-    const idCounter = await this.trackerContract.tokenIdCounter();
-    const arr: object[] = [];
-
-    for (let i = 0; i < Number(idCounter); i++) {
-      const id = i;
-      const task = await this.trackerContract.maintenanceTasks(id);
-      const {
-        clientName,
-        systemName,
-        maintenanceName,
-        systemCycles,
-        estimatedTime,
-        startTime,
-        cost,
-        generalStatus,
-        executionStatus,
-        repairman,
-        qualityInspector,
-      } = task;
-
-      const tokenId = i.toString();
-
-      // const initTime = new Date(startTime * 1000).toUTCString();
-      // const estimatedFinish = new Date(estimatedTime * 1000).toUTCString();
-
-      const taskCost = ethers.formatEther(cost.toString());
-      const genStatus = generalStatus.toString();
-      const execStatus = executionStatus.toString();
-
-      arr.push({
-        tokenId,
-        clientName,
-        systemName,
-        maintenanceName,
-        systemCycles,
-        estimatedTime,
-        startTime,
-        taskCost,
-        genStatus,
-        execStatus,
-        repairman,
-        qualityInspector,
-      });
+    try {
+      return this.tokenContract.target.toString();
+    } catch (e) {
+      return new BadRequestException('Err:WrongTokenCt', e);
     }
-    return arr;
+  }
+
+  async setTrackerCtAddr({ address: trackerAddress }) {
+    this.trackerContract = new ethers.Contract(
+      trackerAddress,
+      trackerJson.abi,
+      this.wallet,
+    );
+    const tokenAddress = await this.trackerContract?.tokenContract();
+    return { tokenAddress, trackerAddress }; // console.log({ tokenAddress, trackerAddress })
+  }
+
+  async getTasksList() {
+    try {
+      const idCounter = await this.trackerContract.tokenIdCounter();
+      const arr: object[] = [];
+
+      for (let i = 0; i < Number(idCounter); i++) {
+        const id = i;
+        const task = await this.trackerContract.maintenanceTasks(id);
+        const {
+          clientName,
+          systemName,
+          maintenanceName,
+          systemCycles,
+          estimatedTime,
+          startTime,
+          cost,
+          generalStatus,
+          executionStatus,
+          repairman,
+          qualityInspector,
+        } = task;
+
+        const tokenId = i.toString();
+
+        const taskCost = ethers.formatEther(cost.toString());
+        const genStatus = generalStatus.toString();
+        const execStatus = executionStatus.toString();
+
+        arr.push({
+          tokenId,
+          clientName,
+          systemName,
+          maintenanceName,
+          systemCycles,
+          estimatedTime,
+          startTime,
+          taskCost,
+          genStatus,
+          execStatus,
+          repairman,
+          qualityInspector,
+        });
+      }
+      return arr;
+    } catch (e) {
+      return new BadRequestException('Err:ProblemWithTrackerCt', e);
+    }
   }
 }
