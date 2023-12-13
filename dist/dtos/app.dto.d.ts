@@ -3,7 +3,7 @@ export declare class SetTrackerCtAddrDto {
 }
 export declare class PayForTask {
     tokenId: string;
-    address: string;
+    url: string;
 }
 export declare class DeployTrackerContract {
     tokenAddress: string;

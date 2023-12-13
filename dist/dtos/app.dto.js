@@ -37,10 +37,10 @@ __decorate([
     (0, swagger_1.ApiProperty)({
         type: String,
         required: true,
-        default: '0x0000000000000000000000000000000000000000',
+        default: 'ipfs://QmdtibqnMFai8CwQ6qUUUkxhs4MAZNPnrx9h4Ncn5PyQpn',
     }),
     __metadata("design:type", String)
-], PayForTask.prototype, "address", void 0);
+], PayForTask.prototype, "url", void 0);
 class DeployTrackerContract {
 }
 exports.DeployTrackerContract = DeployTrackerContract;

@@ -96,7 +96,9 @@ export declare class AppController {
         result: string | import("@nestjs/common").BadRequestException;
     }>;
     payForTaskContract(body: PayForTask): Promise<{
-        result: import("@nestjs/common").BadRequestException;
+        result: {
+            txHash: any;
+        };
     }>;
     setTrackerCtAddr(body: SetTrackerCtAddrDto): Promise<{
         result: {

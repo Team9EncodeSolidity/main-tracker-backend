@@ -19,9 +19,9 @@ export class PayForTask {
   @ApiProperty({
     type: String,
     required: true,
-    default: '0x0000000000000000000000000000000000000000',
+    default: 'ipfs://QmdtibqnMFai8CwQ6qUUUkxhs4MAZNPnrx9h4Ncn5PyQpn',
   })
-  address: string;
+  url: string;
   
 }
 export class DeployTrackerContract {
